@@ -8,3 +8,8 @@ openai==0.28
 tiktoken
 altair==4.2.0
 streamlit-lottie
+
+Pillow
+langchain
+langchain-community
+
