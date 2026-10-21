@@ -22,21 +22,21 @@ st.set_page_config(
 )
 
 # -----------------------------------------------------------------------------
-# 2. Estilos Personalizados (CSS)
+# 2. Estilos Personalizados (CSS) — Dark Academia
 # -----------------------------------------------------------------------------
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
     :root {
-        --paper:       #fcfbfa;
-        --paper-dark:  #f2efe9;
-        --ink:         #1c1b1a;
-        --ink-light:   #4a4744;
-        --muted:       #8a8580;
-        --border:      #e0dcd3;
-        --accent:      #9b3e2e; /* Terracota / Vino */
-        --accent-soft: #fdf4f2;
+        --bg:            #0d0c10;
+        --surface:       #16141a;
+        --surface-hover: #1e1b24;
+        --ink:           #e6e1d6; /* Blanco cálido */
+        --ink-muted:     #8b858f;
+        --border:        #2a2633;
+        --accent:        #d4a373; /* Dorado viejo */
+        --accent-glow:   rgba(212, 163, 115, 0.15);
     }
 
     /* ═══ BASE ═══ */
@@ -52,12 +52,12 @@ st.markdown("""
         color: var(--ink) !important;
     }
 
-    /* ═══ FONDO DE PAPEL ═══ */
+    /* ═══ FONDO OSCURO ═══ */
     .stApp {
-        background-color: var(--paper) !important;
+        background-color: var(--bg) !important;
         background-image: 
-            radial-gradient(circle at 15% 20%, rgba(155, 62, 46, 0.03), transparent 40%),
-            radial-gradient(circle at 85% 80%, rgba(155, 62, 46, 0.02), transparent 40%);
+            radial-gradient(circle at 50% 0%, rgba(212, 163, 115, 0.05), transparent 50%),
+            radial-gradient(circle at 10% 90%, rgba(212, 163, 115, 0.03), transparent 40%);
         background-attachment: fixed;
     }
 
@@ -73,7 +73,7 @@ st.markdown("""
 
     /* ═══ SIDEBAR ═══ */
     [data-testid="stSidebar"] {
-        background: var(--paper-dark) !important;
+        background: var(--surface) !important;
         border-right: 1px solid var(--border) !important;
     }
     [data-testid="stSidebar"] * { color: var(--ink) !important; }
@@ -88,6 +88,7 @@ st.markdown("""
         font-size: 2.5rem;
         display: block;
         margin-bottom: 0.5rem;
+        filter: drop-shadow(0 0 10px rgba(212, 163, 115, 0.3));
     }
     .sb-brand-title {
         font-family: 'Cormorant Garamond', serif;
@@ -101,12 +102,12 @@ st.markdown("""
         font-size: 0.72rem;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        color: var(--muted);
+        color: var(--accent);
         margin-top: 0.35rem;
         font-weight: 500;
     }
 
-    /* ═══ INPUTS EN SIDEBAR Y MAIN ═══ */
+    /* ═══ INPUTS ═══ */
     .stTextInput label,
     .stTextArea label,
     .stTextInput [data-testid="stWidgetLabel"] p,
@@ -115,33 +116,33 @@ st.markdown("""
         font-size: 0.78rem !important;
         letter-spacing: 0.05em !important;
         text-transform: uppercase !important;
-        color: var(--ink-light) !important;
+        color: var(--ink-muted) !important;
         font-weight: 600 !important;
     }
     
     .stTextInput div[data-baseweb="input"] > div,
     .stTextInput input,
     .stTextArea textarea {
-        background-color: var(--paper) !important;
+        background-color: var(--bg) !important;
         border: 1px solid var(--border) !important;
-        border-radius: 6px !important;
+        border-radius: 8px !important;
         color: var(--ink) !important;
         font-family: 'Inter', sans-serif !important;
         font-size: 0.92rem !important;
         padding: 0.7rem 1rem !important;
-        transition: border-color 0.2s ease !important;
+        transition: all 0.2s ease !important;
     }
     .stTextInput div[data-baseweb="input"] > div:focus-within,
     .stTextInput input:focus,
     .stTextArea textarea:focus {
         border-color: var(--accent) !important;
-        box-shadow: 0 0 0 3px rgba(155, 62, 46, 0.1) !important;
+        box-shadow: 0 0 0 3px var(--accent-glow) !important;
         outline: none !important;
     }
 
     /* ═══ FILE UPLOADER ═══ */
     [data-testid="stFileUploader"] {
-        background-color: var(--paper-dark);
+        background-color: var(--surface);
         border: 1px dashed var(--border);
         border-radius: 12px;
         padding: 1.5rem;
@@ -154,36 +155,41 @@ st.markdown("""
         padding: 0 !important;
     }
     [data-testid="stFileUploader"] button {
-        background-color: var(--paper) !important;
+        background-color: var(--surface-hover) !important;
         border: 1px solid var(--border) !important;
         color: var(--ink) !important;
         border-radius: 6px !important;
         font-weight: 500 !important;
+        transition: all 0.2s ease !important;
+    }
+    [data-testid="stFileUploader"] button:hover {
+        border-color: var(--accent) !important;
+        color: var(--accent) !important;
     }
 
     /* ═══ BOTÓN PRINCIPAL ═══ */
     .stButton > button {
         width: 100%;
-        background-color: var(--ink) !important;
-        color: var(--paper) !important;
-        border: 2px solid var(--ink) !important;
-        border-radius: 6px !important;
+        background-color: var(--accent) !important;
+        color: var(--bg) !important;
+        border: none !important;
+        border-radius: 8px !important;
         font-family: 'Inter', sans-serif !important;
         font-weight: 600 !important;
         font-size: 0.95rem !important;
-        padding: 0.8rem 1.4rem !important;
+        padding: 0.85rem 1.4rem !important;
         letter-spacing: 0.02em !important;
         transition: all 0.2s ease !important;
+        box-shadow: 0 4px 15px rgba(212, 163, 115, 0.2) !important;
     }
-    .stButton > button p { color: var(--paper) !important; }
+    .stButton > button p { color: var(--bg) !important; font-weight: 600 !important; }
     .stButton > button:hover {
-        background-color: var(--accent) !important;
-        border-color: var(--accent) !important;
+        background-color: #e6b88a !important;
         transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(155, 62, 46, 0.2);
+        box-shadow: 0 6px 20px rgba(212, 163, 115, 0.35) !important;
     }
 
-    /* ═══ TÍTULO PRINCIPAL (HERO) ═══ */
+    /* ═══ HERO ═══ */
     .hero {
         text-align: center;
         padding: 1rem 0 2.5rem 0;
@@ -205,15 +211,17 @@ st.markdown("""
         margin: 0 0 1rem 0 !important;
         font-weight: 700 !important;
         color: var(--ink) !important;
+        text-shadow: 0 0 30px rgba(230, 225, 214, 0.1);
     }
     .hero h1 em {
         font-style: italic;
         font-weight: 400;
         color: var(--accent);
+        text-shadow: 0 0 40px var(--accent-glow);
     }
     .hero p {
         font-size: 1.1rem;
-        color: var(--ink-light);
+        color: var(--ink-muted);
         max-width: 600px;
         margin: 0 auto;
         line-height: 1.6;
@@ -227,9 +235,9 @@ st.markdown("""
         margin-bottom: 2.5rem;
     }
     .metric-card {
-        background: var(--paper);
+        background: var(--surface);
         border: 1px solid var(--border);
-        border-top: 3px solid var(--ink);
+        border-top: 2px solid var(--accent);
         border-radius: 8px;
         padding: 1.5rem;
         text-align: center;
@@ -238,7 +246,7 @@ st.markdown("""
         font-family: 'Cormorant Garamond', serif;
         font-size: 2.8rem;
         font-weight: 700;
-        color: var(--ink);
+        color: var(--accent);
         line-height: 1;
         margin-bottom: 0.5rem;
     }
@@ -246,19 +254,19 @@ st.markdown("""
         font-size: 0.75rem;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        color: var(--muted);
+        color: var(--ink-muted);
         font-weight: 600;
     }
 
     /* ═══ CAJA DEL POEMA ═══ */
     .poem-container {
-        background: var(--paper);
+        background: var(--surface);
         border: 1px solid var(--border);
-        border-top: 4px solid var(--accent);
+        border-left: 4px solid var(--accent);
         border-radius: 8px;
         padding: 3.5rem 3rem;
         margin-top: 2.5rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(212, 163, 115, 0.03);
         position: relative;
     }
     .poem-header {
@@ -267,25 +275,27 @@ st.markdown("""
         font-size: 0.75rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: var(--muted);
+        color: var(--accent);
         margin-bottom: 2rem;
     }
     .poem-text {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         line-height: 2;
         color: var(--ink);
         text-align: center;
         font-style: italic;
+        text-shadow: 0 0 20px rgba(230, 225, 214, 0.05);
     }
     
     /* ═══ ALERTAS ═══ */
     [data-testid="stAlert"] {
-        border-radius: 6px !important;
-        border: none !important;
-        background-color: var(--paper-dark) !important;
+        border-radius: 8px !important;
+        border: 1px solid var(--border) !important;
+        background-color: var(--surface) !important;
         color: var(--ink) !important;
     }
+    [data-testid="stAlert"] svg { fill: var(--accent) !important; }
     
     /* ═══ SEPARADORES ═══ */
     hr {
@@ -296,7 +306,7 @@ st.markdown("""
     /* ═══ CAPTION ═══ */
     .stCaption, [data-testid="stCaptionContainer"] {
         font-family: 'Inter', sans-serif !important;
-        color: var(--muted) !important;
+        color: var(--ink-muted) !important;
         font-size: 0.8rem !important;
         letter-spacing: 0.02em;
     }
@@ -305,7 +315,7 @@ st.markdown("""
     @media (max-width: 768px) {
         .hero h1 { font-size: 2.8rem !important; }
         .poem-container { padding: 2rem 1.5rem; }
-        .poem-text { font-size: 1.25rem; }
+        .poem-text { font-size: 1.3rem; }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -439,7 +449,7 @@ if pdf is not None and ke:
                 chain = load_qa_chain(llm, chain_type="stuff", prompt=PROMPT)
                 response = chain.run(input_documents=docs, question=user_topic)
 
-                # Mostrar resultado con la nueva caja de poema
+                # Mostrar resultado
                 response_html = response.replace('\n', '<br>')
                 st.markdown(f"""
                     <div class="poem-container">
